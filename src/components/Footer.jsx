@@ -6,9 +6,9 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
     
     const socialLinks = [
-        { icon: <Linkedin size={18} />, href: 'https://linkedin.com/in/ahmed-osman22', label: 'LinkedIn' },
+        { icon: <Linkedin size={18} />, href: 'https://www.linkedin.com/in/ahmed-osman22', label: 'LinkedIn' },
         { icon: <Github size={18} />, href: 'https://github.com/ahmede2test', label: 'GitHub' },
-        { icon: <Instagram size={18} />, href: 'https://instagram.com/ahmed_elsisi', label: 'Instagram' },
+        { icon: <Instagram size={18} />, href: 'https://www.instagram.com/ahmed_el_sisiy?igsh=dW1pbHU1M2E0cG50', label: 'Instagram' },
     ];
 
     const quickLinks = [
@@ -83,18 +83,18 @@ const Footer = () => {
 
                 {/* Bottom Section */}
                 <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="text-slate-500 text-sm">
-                        &copy; {currentYear} Ahmed Osman ELsisi. Portfolio
+                    <div className="text-slate-500 text-sm font-medium">
+                        © 2026 Ahmed Osman ElSisi. Portfolio
                     </div>
 
-                    <div className="flex items-center space-x-2 text-slate-400 text-xs font-bold uppercase tracking-widest">
+                    <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-slate-400 text-xs font-bold uppercase tracking-widest">
                         <span>Built with</span>
-                        <div className="flex items-center space-x-1 px-2 py-1 rounded-full bg-slate-900 border border-white/5 text-slate-300">
+                        <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900 border border-white/5 text-slate-300 shadow-inner">
                              <span className="text-blue-400">React</span>
-                             <span>&</span>
+                             <span className="text-slate-600">&</span>
                              <span className="text-primary">Flutter Spirit</span>
                         </div>
-                        <Heart size={14} className="text-red-500 fill-red-500 ml-1" />
+                        <Heart size={14} className="text-red-500 fill-red-500 animate-pulse" />
                     </div>
                 </div>
             </div>

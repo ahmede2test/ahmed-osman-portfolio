@@ -16,17 +16,15 @@ const Contact = () => {
     setStatus({ submitting: true, success: false, error: false });
 
     try {
-      // Placeholder IDs - Replace with real ones from EmailJS dashboard
-      const serviceId = 'YOUR_SERVICE_ID';
-      const templateId = 'YOUR_TEMPLATE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
+      // Real EmailJS Credentials
+      const serviceId = 'service_d6siurn';
+      const templateId = 'template_qxh1hzq';
+      const publicKey = 'DfPg_wPX-qPXK9U1R';
 
-      // Check if EmailJS credentials are configured
-      if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
-        console.warn('⚠️ EmailJS credentials not configured. Please update Contact.jsx with your EmailJS keys.');
-        console.error('Missing credentials:', { serviceId, templateId, publicKey });
+      // Check if EmailJS credentials are configured (Simplified as they are now provided)
+      if (!serviceId || !templateId || !publicKey) {
+        console.error('Missing EmailJS credentials');
         setStatus({ submitting: false, success: false, error: true });
-        setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
         return;
       }
 
@@ -171,7 +169,7 @@ const Contact = () => {
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-500 to-accent text-white font-bold tracking-widest uppercase text-xs flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed font-sans"
               >
-                <span>{status.submitting ? 'Sending Message...' : 'Send Message'}</span>
+                <span>{status.submitting ? 'Sending...' : 'Send Message'}</span>
                 {!status.submitting && <Send size={16} />}
               </motion.button>
             </form>
