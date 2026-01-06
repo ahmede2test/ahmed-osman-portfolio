@@ -8,23 +8,39 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
-    const fetchRepos = async () => {
+    const fetchAllRepos = async () => {
       try {
-        // Fetch up to 100 repos sorted by latest update
-        const response = await fetch('https://api.github.com/users/ahmede2test/repos?sort=updated&per_page=100');
-        const data = await response.json();
+        let allFetched = [];
+        let page = 1;
+        let keepFetching = true;
+
+        while (keepFetching) {
+          const response = await fetch(`https://api.github.com/users/ahmede2test/repos?per_page=100&page=${page}`);
+          const data = await response.json();
+
+          if (data && Array.isArray(data) && data.length > 0) {
+            allFetched = [...allFetched, ...data];
+            page++;
+          } else {
+            keepFetching = false;
+          }
+
+          // Safety break
+          if (page > 20) keepFetching = false;
+        }
         
-        // Strict Filtering: 
+        // Curation Logic:
         // 1. Exclude forked repositories
-        // 2. Exclude repositories with "untitled" in name (case-insensitive)
-        // 3. Exclude repositories without a description
-        const filteredData = data.filter(repo => 
+        // 2. Exclude repositories with "untitled" in name
+        const curatedData = allFetched.filter(repo => 
           !repo.fork &&
-          repo.description && 
           !repo.name.toLowerCase().includes('untitled')
         );
+
+        // Sort by latest pushed/updated globally
+        curatedData.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
         
-        setProjects(filteredData);
+        setProjects(curatedData);
       } catch (error) {
         console.error("Error fetching GitHub repos:", error);
       } finally {
@@ -32,7 +48,7 @@ const Projects = () => {
       }
     };
 
-    fetchRepos();
+    fetchAllRepos();
   }, []);
 
   const handleShowMore = () => {
@@ -129,7 +145,7 @@ const Projects = () => {
                       {project.name.replace(/-/g, ' ')}
                     </h3>
                     <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 font-light">
-                      {project.description}
+                      {project.description || "A sophisticated technical implementation focusing on clean architecture and high-performance delivery."}
                     </p>
                   </div>
 
