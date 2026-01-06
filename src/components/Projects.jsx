@@ -142,7 +142,7 @@ const Projects = () => {
                   {/* Content */}
                   <div className="space-y-4 flex-grow">
                     <h3 className="text-2xl font-black text-white group-hover:text-primary transition-colors line-clamp-1">
-                      {project.name.replace(/-/g, ' ')}
+                      {project.name.replace(/[_-]/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                     </h3>
                     <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 font-light">
                       {project.description || "A sophisticated technical implementation focusing on clean architecture and high-performance delivery."}

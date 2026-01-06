@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Instagram, CheckCircle2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -51,39 +51,49 @@ const Contact = () => {
             </p>
           </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex items-center justify-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all group">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary group-hover:scale-110 transition-transform">
-                  <Mail size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Email</p>
-                  <p className="text-sm text-slate-200">ahmed.osman.is.fcai@gmail.com</p>
-                </div>
-              </div>
+          <div className="flex items-center justify-center gap-6 mt-8">
+            {/* Email */}
+            <motion.a
+              href="mailto:ahmed.osman.is.fcai@gmail.com"
+              whileHover={{ scale: 1.2 }}
+              className="group w-16 h-16 rounded-full backdrop-blur-md bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:border-primary/30"
+            >
+              <Mail size={24} className="text-slate-300 group-hover:text-primary transition-colors" />
+            </motion.a>
 
-              <a href="https://linkedin.com/in/ahmed-osman22" target="_blank" rel="noopener noreferrer" 
-                className="flex items-center justify-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-secondary/20 transition-all group">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/10 text-secondary group-hover:scale-110 transition-transform">
-                  <Linkedin size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">LinkedIn</p>
-                  <p className="text-sm text-slate-200">ahmed-osman22</p>
-                </div>
-              </a>
+            {/* LinkedIn */}
+            <motion.a
+              href="https://www.linkedin.com/in/ahmed-osman22"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.2 }}
+              className="group w-16 h-16 rounded-full backdrop-blur-md bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_30px_rgba(14,165,233,0.4)] hover:border-sky-500/30"
+            >
+              <Linkedin size={24} className="text-slate-300 group-hover:text-sky-400 transition-colors" />
+            </motion.a>
 
-              <a href="https://github.com/ahmede2test" target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-accent/20 transition-all group">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-accent/10 text-accent group-hover:scale-110 transition-transform">
-                  <Github size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">GitHub</p>
-                  <p className="text-sm text-slate-200">ahmede2test</p>
-                </div>
-              </a>
-            </div>
+            {/* GitHub */}
+            <motion.a
+              href="https://github.com/ahmede2test"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.2 }}
+              className="group w-16 h-16 rounded-full backdrop-blur-md bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:border-purple-500/30"
+            >
+              <Github size={24} className="text-slate-300 group-hover:text-purple-400 transition-colors" />
+            </motion.a>
+
+            {/* Instagram */}
+            <motion.a
+              href="https://www.instagram.com/ahmed_el_sisiy?igsh=dW1pbHU1M2E0cG50"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.2 }}
+              className="group w-16 h-16 rounded-full backdrop-blur-md bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:border-pink-500/30"
+            >
+              <Instagram size={24} className="text-slate-300 group-hover:text-pink-400 transition-colors" />
+            </motion.a>
+          </div>
         </motion.div>
 
         {/* Contact Form */}
