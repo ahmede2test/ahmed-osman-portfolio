@@ -84,7 +84,6 @@ const Contact = () => {
                 </div>
               </a>
             </div>
-          </div>
         </motion.div>
 
         {/* Contact Form */}
@@ -94,7 +93,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="relative p-[1px] rounded-[24px] bg-gradient-to-b from-white/10 to-transparent"
         >
-          <div className="bg-slate-950/40 backdrop-blur-xl p-8 rounded-[23px] space-y-6">
+          <div className="bg-slate-950/40 backdrop-blur-xl p-8 rounded-[23px] space-y-6 h-full">
             <form ref={form} onSubmit={sendEmail} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -141,41 +140,43 @@ const Contact = () => {
                   ]
                 }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-500 to-accent text-white font-bold tracking-widest uppercase text-xs flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-500 to-accent text-white font-bold tracking-widest uppercase text-xs flex items-center justify-center space-x-2 disabled:opacity-50 font-sans"
               >
                 <span>{status.submitting ? 'Sending Message...' : 'Send Message'}</span>
                 {!status.submitting && <Send size={16} />}
               </motion.button>
             </form>
 
-          {/* Success/Error Overlays */}
-          {status.success && (
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4"
-            >
-              <CheckCircle2 size={64} className="text-primary animate-bounce" />
-              <h3 className="text-2xl font-bold">Message Sent!</h3>
-              <p className="text-slate-400">Thanks for reaching out. I'll get back to you soon.</p>
-            </motion.div>
-          )}
+            <AnimatePresence>
+              {status.success && (
+                <motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4 rounded-[23px] z-10"
+                >
+                  <CheckCircle2 size={64} className="text-primary animate-bounce" />
+                  <h3 className="text-2xl font-bold">Message Sent!</h3>
+                  <p className="text-slate-400">Thanks for reaching out. I'll get back to you soon.</p>
+                </motion.div>
+              )}
 
-          {status.error && (
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4"
-            >
-              <AlertCircle size={64} className="text-red-500" />
-              <h3 className="text-2xl font-bold">Oops!</h3>
-              <p className="text-slate-400">Something went wrong. Please try again or email me directly.</p>
-              <button 
-                onClick={() => setStatus(prev => ({ ...prev, error: false }))}
-                className="text-primary font-semibold hover:underline"
-              >
-                Try again
-              </button>
-            </motion.div>
-          )}
+              {status.error && (
+                <motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4 rounded-[23px] z-10"
+                >
+                  <AlertCircle size={64} className="text-red-500" />
+                  <h3 className="text-2xl font-bold">Oops!</h3>
+                  <p className="text-slate-400">Something went wrong. Please try again.</p>
+                  <button 
+                    onClick={() => setStatus(prev => ({ ...prev, error: false }))}
+                    className="text-primary font-semibold hover:underline"
+                  >
+                    Try again
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </section>
