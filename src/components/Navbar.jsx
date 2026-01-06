@@ -24,7 +24,7 @@ const Navbar = () => {
   const socialLinks = [
     { icon: <Linkedin size={20} />, href: 'https://linkedin.com/in/ahmed-osman22' },
     { icon: <Github size={20} />, href: 'https://github.com/ahmede2test' },
-    { icon: <Instagram size={20} />, href: 'https://instagram.com/ahmed_elsisi' },
+    { icon: <Instagram size={20} />, href: 'https://www.instagram.com/ahmed_el_sisiy?igsh=dW1pbHU1M2E0cG50' },
   ];
 
   return (

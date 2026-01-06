@@ -20,13 +20,22 @@ const Contact = () => {
     const templateId = 'YOUR_TEMPLATE_ID';
     const publicKey = 'YOUR_PUBLIC_KEY';
 
+    // Check if EmailJS credentials are configured
+    if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
+      console.warn('⚠️ EmailJS credentials not configured. Please update Contact.jsx with your EmailJS keys.');
+      setStatus({ submitting: false, success: false, error: true });
+      setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
+      return;
+    }
+
     emailjs.sendForm(serviceId, templateId, form.current, publicKey)
       .then((result) => {
+          console.log('✅ Email sent successfully:', result.text);
           setStatus({ submitting: false, success: true, error: false });
           form.current.reset();
           setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
       }, (error) => {
-          console.error(error.text);
+          console.error('❌ Email send failed:', error.text);
           setStatus({ submitting: false, success: false, error: true });
           setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
       });
