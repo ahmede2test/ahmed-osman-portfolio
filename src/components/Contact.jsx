@@ -11,34 +11,43 @@ const Contact = () => {
     error: false
   });
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     setStatus({ submitting: true, success: false, error: false });
 
-    // Placeholder IDs - Replace with real ones from EmailJS dashboard
-    const serviceId = 'YOUR_SERVICE_ID';
-    const templateId = 'YOUR_TEMPLATE_ID';
-    const publicKey = 'YOUR_PUBLIC_KEY';
+    try {
+      // Placeholder IDs - Replace with real ones from EmailJS dashboard
+      const serviceId = 'YOUR_SERVICE_ID';
+      const templateId = 'YOUR_TEMPLATE_ID';
+      const publicKey = 'YOUR_PUBLIC_KEY';
 
-    // Check if EmailJS credentials are configured
-    if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
-      console.warn('⚠️ EmailJS credentials not configured. Please update Contact.jsx with your EmailJS keys.');
+      // Check if EmailJS credentials are configured
+      if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
+        console.warn('⚠️ EmailJS credentials not configured. Please update Contact.jsx with your EmailJS keys.');
+        console.error('Missing credentials:', { serviceId, templateId, publicKey });
+        setStatus({ submitting: false, success: false, error: true });
+        setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
+        return;
+      }
+
+      const result = await emailjs.sendForm(serviceId, templateId, form.current, publicKey);
+      console.log('✅ Email successfully sent!', result.status, result.text);
+      setStatus({ submitting: false, success: true, error: false });
+      form.current.reset();
+      setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
+    } catch (error) {
+      console.error('❌ FAILED TO SEND EMAIL...', error);
+      // Detailed logging as requested by user
+      if (error.text) {
+        console.log('Error Text:', error.text);
+      }
+      if (error.status) {
+        console.log('Error Status Code:', error.status);
+      }
+      
       setStatus({ submitting: false, success: false, error: true });
-      setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
-      return;
+      // Keep error message visible for a bit or until user clicks "Try again"
     }
-
-    emailjs.sendForm(serviceId, templateId, form.current, publicKey)
-      .then((result) => {
-          console.log('✅ Email sent successfully:', result.text);
-          setStatus({ submitting: false, success: true, error: false });
-          form.current.reset();
-          setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
-      }, (error) => {
-          console.error('❌ Email send failed:', error.text);
-          setStatus({ submitting: false, success: false, error: true });
-          setTimeout(() => setStatus(prev => ({ ...prev, error: false })), 5000);
-      });
   };
 
   return (
@@ -148,9 +157,10 @@ const Contact = () => {
               </div>
               
               <motion.button 
+                type="submit"
                 disabled={status.submitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={status.submitting ? {} : { scale: 1.02 }}
+                whileTap={status.submitting ? {} : { scale: 0.98 }}
                 animate={status.submitting ? {} : {
                   boxShadow: [
                     "0 0 0px rgba(99,102,241,0)",
@@ -159,7 +169,7 @@ const Contact = () => {
                   ]
                 }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-500 to-accent text-white font-bold tracking-widest uppercase text-xs flex items-center justify-center space-x-2 disabled:opacity-50 font-sans"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-500 to-accent text-white font-bold tracking-widest uppercase text-xs flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed font-sans"
               >
                 <span>{status.submitting ? 'Sending Message...' : 'Send Message'}</span>
                 {!status.submitting && <Send size={16} />}
@@ -184,11 +194,11 @@ const Contact = () => {
                   className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 space-y-4 rounded-[23px] z-10"
                 >
                   <AlertCircle size={64} className="text-red-500" />
-                  <h3 className="text-2xl font-bold">Oops!</h3>
-                  <p className="text-slate-400">Something went wrong. Please try again.</p>
+                  <h3 className="text-2xl font-bold font-sans">Something went wrong</h3>
+                  <p className="text-slate-400 text-sm">Check the browser console for details.</p>
                   <button 
                     onClick={() => setStatus(prev => ({ ...prev, error: false }))}
-                    className="text-primary font-semibold hover:underline"
+                    className="mt-4 px-6 py-2 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-colors font-semibold"
                   >
                     Try again
                   </button>
