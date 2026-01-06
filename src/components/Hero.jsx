@@ -110,7 +110,7 @@ const Hero = () => {
                 
                 <div className="flex flex-wrap items-center justify-center gap-4">
                   <a 
-                    href="/Ahmed%20Osman%20EL_Sisi.cv.pdf" 
+                    href="/CV.pdf" 
                     download="Ahmed_Osman_EL_Sisi_CV.pdf"
                     className="px-6 py-4 rounded-full glass border-white/10 hover:border-primary/30 text-white font-bold hover:bg-white/5 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
                   >
