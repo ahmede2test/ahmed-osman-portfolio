@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Instagram, ArrowRight, MessageCircle } from 'lucide-react';
+import { Github, Linkedin, Instagram, ArrowRight, MessageCircle, FileText } from 'lucide-react';
 
 const Hero = () => {
   const containerVariants = {
@@ -49,7 +49,7 @@ const Hero = () => {
           <div className="relative p-1.5 rounded-full bg-gradient-to-tr from-purple-500 via-blue-500 to-indigo-500">
             <div className="p-1 rounded-full bg-background">
               <img 
-                src="/profile.png" 
+                src="https://github.com/ahmede2test.png" 
                 alt="Ahmed Osman" 
                 className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/10"
               />
@@ -67,7 +67,7 @@ const Hero = () => {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight">
               Mobile App Developer
             </h1>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-pink-500">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.3)]">
               Flutter Expert
             </h2>
           </motion.div>
@@ -97,7 +97,6 @@ const Hero = () => {
           ))}
         </motion.div>
 
-        {/* Action Buttons */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
           <a 
             href="#projects" 
@@ -107,13 +106,24 @@ const Hero = () => {
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </a>
           
-          <a 
-            href="#contact" 
-            className="px-8 py-4 rounded-full glass border-white/10 hover:border-white/20 text-white font-bold text-lg hover:bg-white/5 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
-          >
-            <MessageCircle size={20} />
-            <span>Let's Talk</span>
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a 
+              href="/resume.pdf" 
+              download
+              className="px-8 py-4 rounded-full glass border-white/10 hover:border-primary/30 text-white font-bold text-lg hover:bg-white/5 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+            >
+              <FileText size={20} className="text-primary" />
+              <span>Download CV</span>
+            </a>
+
+            <a 
+              href="#contact" 
+              className="px-8 py-4 rounded-full glass border-white/10 hover:border-white/20 text-white font-bold text-lg hover:bg-white/5 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+            >
+              <MessageCircle size={20} />
+              <span>Let's Talk</span>
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </section>
