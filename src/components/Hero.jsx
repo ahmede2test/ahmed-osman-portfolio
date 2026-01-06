@@ -38,6 +38,14 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content - Left Side */}
           <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
+            {/* Welcome Greeting */}
+            <motion.p 
+              variants={itemVariants}
+              className="text-xl md:text-2xl font-medium text-slate-300"
+            >
+              Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)] font-semibold">Ahmed Osman El Sisi</span> 👋
+            </motion.p>
+
             <div className="space-y-6">
               <motion.h1 
                 variants={itemVariants} 
